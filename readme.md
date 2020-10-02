@@ -1,4 +1,4 @@
-# Welcome to the Fluid Framework Vue Examples Repository!
+# Fluid Framework Vue Examples Repository
 
 This codebase includes examples of collaborative applications built with the Fluid Framework and Vue. For documentation about the Fluid Framework, go to https://FluidFramework.com. The Fluid Framework repository lives at https://github.com/Microsoft/FluidFramework.
 
