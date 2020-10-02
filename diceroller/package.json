@@ -1,0 +1,27 @@
+{
+  "name": "diceroller",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "concurrently \"npm:start:server\" \"vue-cli-service serve\"",
+    "start:server": "tinylicious",
+    "build": "vue-cli-service build",
+    "start": "npm run serve"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "vue": "^3.0.0-0",
+    "@fluidframework/aqueduct": "^0.26.2",
+    "@fluidframework/get-tinylicious-container": "^0.26.2",
+    "@fluidframework/map": "^0.26.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0-0",
+    "concurrently": "^5.3.0",
+    "tinylicious": "^0.2.3810",
+    "typescript": "~3.9.3"
+  }
+}
