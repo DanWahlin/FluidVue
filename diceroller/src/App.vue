@@ -26,17 +26,17 @@ export default defineComponent({
       updateDiceChar(dataObject.value);
     });
 
-    onUnmounted(() => {
-      dataObject.off('diceRolled', updateDiceChar);
-    });
+    function roll() { dataObject.roll(); }
 
-    const roll = () => dataObject.roll();
-
-    const updateDiceChar = (val: number) => {
+    function updateDiceChar(val: number) {
       // Unicode 0x2680-0x2685 are the sides of a dice (⚀⚁⚂⚃⚄⚅)
       diceChar.value = String.fromCodePoint(0x267F + val);
       diceCharColor.value = `hsl(${val * 60}, 70%, 50%)`;
     }
+
+    onUnmounted(() => {
+      dataObject.off('diceRolled', updateDiceChar);
+    });
 
     return {
       diceChar,

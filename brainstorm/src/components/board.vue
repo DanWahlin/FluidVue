@@ -13,18 +13,19 @@
 
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue';
+import { getBooleanType, getObjectType } from '../shared/propTypes';
 import { Notero } from '../services/noteroDataObject';
 import Note from './note.vue';
-import { INote } from '../shared/interfaces';
+import { INote, INoteWithVotes, IUser } from '../shared/interfaces';
 
 export default defineComponent({
   name: 'Board',
   components: { Note },
   props: {
-    model: Notero,
-    notes: Array,
-    user: Object,
-    highlightMine: Boolean
+    model: getObjectType<Notero>({}),
+    notes: getObjectType<INoteWithVotes>([]),
+    user: getObjectType<IUser>({}),
+    highlightMine: getBooleanType(false)
   },
   methods: {
     vote(note: INote) {

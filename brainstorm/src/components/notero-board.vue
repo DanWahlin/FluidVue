@@ -42,7 +42,7 @@ export default defineComponent({
       }
     });
 
-    const changed = (changeType: any) => {
+    function changed(changeType: any) {
       if (model && model.value) {
         switch (changeType) {
           case 'valueChanged':
@@ -57,18 +57,17 @@ export default defineComponent({
       }
     }
 
+    function onHighlightMine(highlight: boolean) {
+        highlightMine.value = highlight;
+    }
+
     onUnmounted(() => {
       if (model && model.value) {
         model.value.off('changed', changed);
       }
     });
 
-    return { notes, user, users, highlightMine };
-  },
-  methods: {
-    onHighlightMine(highlight: boolean) {
-        this.highlightMine = highlight;
-    }
+    return { notes, user, users, highlightMine, onHighlightMine };
   }
 });
 </script>
