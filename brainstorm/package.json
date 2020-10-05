@@ -1,5 +1,5 @@
 {
-  "name": "diceroller",
+  "name": "brainstorm",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,8 +13,7 @@
     "vue": "^3.0.0-0",
     "@fluidframework/aqueduct": "^0.26.2",
     "@fluidframework/get-tinylicious-container": "^0.26.2",
-    "@fluidframework/map": "^0.26.2",
-    "@fluidframework/core-interfaces": "^0.26.2"
+    "@fluidframework/map": "^0.26.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -22,6 +21,8 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0-0",
     "concurrently": "^5.3.0",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
     "tinylicious": "^0.2.3810",
     "typescript": "~3.9.3"
   }

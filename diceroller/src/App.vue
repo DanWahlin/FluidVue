@@ -17,7 +17,7 @@ export default defineComponent({
   setup() {
     let diceChar = ref('');
     let diceCharColor = ref('');
-    let dataObject: any = null;
+    let dataObject: DiceRoller;
 
     onMounted(async () => {
       let fluidService = new FluidLoaderService();
