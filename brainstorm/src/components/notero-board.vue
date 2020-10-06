@@ -31,29 +31,23 @@ export default defineComponent({
     let { model } = toRefs(props);
     let notes: Ref<INote[] | undefined> = ref();
     let user: Ref<IUser | undefined> = ref();
-    let users: Ref<IUser[] | undefined> = ref();
+    let users: Ref<IUser[] | undefined> = ref([]);
     let highlightMine: Ref<boolean> = ref(false);
 
     watch(() => props.model, (model, prevModel) => {
       // If first time model has a value then hook up 'changed' event
       if (model && !prevModel) {
-        notes.value = model.getNotesFromBoard();
+        changed();
         model.on('changed', changed); 
       }
     });
 
-    function changed(changeType: any) {
+    function changed(changeType?: any) {
+      // Not using changeType but could use it to do more granular changes
       if (model && model.value) {
-        switch (changeType) {
-          case 'valueChanged':
-              notes.value = model.value.getNotesFromBoard();
-              break;
-          case 'addMember':
-          case 'removeMember':
-            user.value = model.value.getUser();
-            users.value = model.value.getUsers();
-            break;
-        }
+          notes.value = model.value.getNotesFromBoard();
+          user.value = model.value.getUser();
+          users.value = model.value.getUsers();
       }
     }
 

@@ -222,7 +222,7 @@ export class Notero extends DataObject implements INoteroDataModel {
         const userId = sessionStorage.getItem('userId') as string;
         if (userId &&
             this.usersMap.get<IUser>(userId)) {
-            this.userId = userId; //This session might have has a user
+            this.userId = userId; //This session might have a user
         } else {
             const user: IUser = {
                 id: FakeUser.getFakeUserId(),
