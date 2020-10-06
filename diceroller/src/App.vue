@@ -1,9 +1,17 @@
 <template>
-  <div style="text-align: center">
-    <div style="font-size: 200px;" :style="{color: diceCharColor }">
-      {{diceChar}}
+  <div>
+    <h1>Dice Roller Fluid Demo</h1>
+    This demonstration shows how to use Fluid distributed data structures to sync data across multiple clients.
+    After starting the demo (see the readme for instructions), copy the browser's URL into another tab to create another Fluid client. 
+    <br /><br />
+    After multiple clients are available, click the Roll button to sync rolls across all of the clients.
+    <br />
+    <div style="text-align: center">
+      <div style="font-size: 200px;" :style="{color: diceCharColor }">
+        {{diceChar}}
+      </div>
+      <button style="font-size: 50px" @click="roll">Roll</button>
     </div>
-    <button style="font-size: 50px" @click="roll">Roll</button>
   </div>
 </template>
 
