@@ -22,10 +22,10 @@ export default defineComponent({
   name: 'App',
   components: { NoteroBoard },
   setup() {
-    let dataObject: Ref<Notero | undefined> = ref();
+    const dataObject: Ref<Notero | undefined> = ref();
 
     onMounted(async () => {
-      let fluidService = new FluidLoaderService();
+      const fluidService = new FluidLoaderService();
       dataObject.value = await fluidService.loadDataObject<Notero>(NoteroContainerFactory);
     });
 

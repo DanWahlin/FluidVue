@@ -27,10 +27,12 @@ export default defineComponent({
     user: getObjectType<IUser>({}),
     highlightMine: getBooleanType(false)
   },
-  methods: {
-    vote(note: INote) {
+  setup() {
+    function vote(note: INote) {
         this.model?.vote(note);
     }
+
+    return { vote };
   }
 });
 </script>

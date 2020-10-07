@@ -23,12 +23,12 @@ import { DiceRollerContainerRuntimeFactory } from './services/containerCode';
 
 export default defineComponent({
   setup() {
-    let diceChar = ref('');
-    let diceCharColor = ref('');
+    const diceChar = ref('');
+    const diceCharColor = ref('');
     let dataObject: DiceRoller;
 
     onMounted(async () => {
-      let fluidService = new FluidLoaderService();
+      const fluidService = new FluidLoaderService();
       dataObject = await fluidService.loadDataObject<DiceRoller>(DiceRollerContainerRuntimeFactory);
       dataObject.on('diceRolled', updateDiceChar);
       updateDiceChar(dataObject.value);

@@ -28,17 +28,17 @@ export default defineComponent({
     model: Notero
   },
   setup(props) {
-    let { model } = toRefs(props);
-    let notes: Ref<INote[] | undefined> = ref();
-    let user: Ref<IUser | undefined> = ref();
-    let users: Ref<IUser[] | undefined> = ref([]);
-    let highlightMine: Ref<boolean> = ref(false);
+    const { model } = toRefs(props);
+    const notes: Ref<INote[] | undefined> = ref();
+    const user: Ref<IUser | undefined> = ref();
+    const users: Ref<IUser[] | undefined> = ref([]);
+    const highlightMine: Ref<boolean> = ref(false);
 
-    watch(() => props.model, (model, prevModel) => {
+    watch(() => props.model, (currModel, prevModel) => {
       // If first time model has a value then hook up 'changed' event
-      if (model && !prevModel) {
+      if (currModel && !prevModel) {
         changed();
-        model.on('changed', changed); 
+        currModel.on('changed', changed); 
       }
     });
 
