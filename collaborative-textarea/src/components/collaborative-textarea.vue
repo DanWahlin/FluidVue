@@ -25,7 +25,7 @@ import { getObjectType } from '../shared/propTypes';
 export default defineComponent({
   name: 'CollaborativeTextArea',
   props: {
-      sharedString: getObjectType<SharedString>({})
+      sharedString: SharedString
   },
   setup(props) {
     const textArea: Ref<HTMLTextAreaElement | undefined> = ref();
@@ -36,7 +36,7 @@ export default defineComponent({
 
     watch(() => props.sharedString, (currVal, prevVal) => {
       // If first time sharedString has a value then hook up 'sequenceDelta' event
-      if (currVal && !prevVal) {
+      if (currVal && !prevVal && sharedString) {
         sharedString.value = currVal;
         text.value = sharedString.value.getText();
         // Sets an event listener so we can update our state as the value changes
