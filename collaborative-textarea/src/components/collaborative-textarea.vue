@@ -36,7 +36,7 @@ export default defineComponent({
 
     watch(() => props.sharedString, (currVal, prevVal) => {
       // If first time sharedString has a value then hook up 'sequenceDelta' event
-      if (currVal && !prevVal && sharedString) {
+      if (currVal && !prevVal) {
         sharedString.value = currVal;
         text.value = sharedString.value.getText();
         // Sets an event listener so we can update our state as the value changes
