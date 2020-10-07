@@ -27,8 +27,8 @@ export default defineComponent({
     const sharedString: Ref<SharedString | undefined> = ref();
 
     onMounted(async () => {
-      let fluidService = new FluidLoaderService();
-      let dataObject = await fluidService.loadDataObject<CollaborativeText>(CollaborativeTextContainerRuntimeFactory);
+      const fluidService = new FluidLoaderService();
+      const dataObject = await fluidService.loadDataObject<CollaborativeText>(CollaborativeTextContainerRuntimeFactory);
       sharedString.value = dataObject.text;
     });
 
