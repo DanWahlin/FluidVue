@@ -18,14 +18,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, toRefs, onMounted, watch } from 'vue';
+import { defineComponent, ref, Ref, toRefs, onUnmounted, watch } from 'vue';
 import { SharedString } from '@fluidframework/sequence';
-import { getObjectType } from '../../../brainstorm/src/shared/propTypes';
+import { getObjectType } from '../shared/propTypes';
 
 export default defineComponent({
   name: 'CollaborativeTextArea',
   props: {
-      sharedString: SharedString
+      sharedString: getObjectType<SharedString>({})
   },
   setup(props) {
     const textArea: Ref<HTMLTextAreaElement | undefined> = ref();
@@ -156,6 +156,12 @@ export default defineComponent({
             }
         }
     }
+
+    onUnmounted(() => {
+      if (sharedString && sharedString.value) {
+        sharedString.value.off('sequenceDelta', sequenceDeltaChanged);
+      }
+    });
 
     return {
         text,
