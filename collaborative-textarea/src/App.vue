@@ -6,36 +6,19 @@
     <br /><br />
     After multiple clients are available, type into the text area and notice that all changes are synced across clients.
     <br />
-    <div class="text-area" v-if="sharedString">
-      <CollaborativeTextArea :sharedString="sharedString" />
+    <div class="text-area">
+      <CollaborativeTextArea />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, onMounted } from 'vue';
-import { CollaborativeText } from './services/collaborative-text.dataobject';
-import { FluidLoaderService } from './services/fluidLoaderService';
-import { CollaborativeTextContainerRuntimeFactory } from './services/containerCode';
-import { SharedString } from '@fluidframework/sequence';
+import { defineComponent } from 'vue';
 import CollaborativeTextArea from './components/collaborative-textarea.vue';
 
 export default defineComponent({
   name: 'App',
-  components: { CollaborativeTextArea },
-  setup() {
-    const sharedString: Ref<SharedString | undefined> = ref();
-
-    onMounted(async () => {
-      const fluidService = new FluidLoaderService();
-      const dataObject = await fluidService.loadDataObject<CollaborativeText>(CollaborativeTextContainerRuntimeFactory);
-      sharedString.value = dataObject.text;
-    });
-
-    return {
-      sharedString
-    }
-  }
+  components: { CollaborativeTextArea }
 });
 </script>
 

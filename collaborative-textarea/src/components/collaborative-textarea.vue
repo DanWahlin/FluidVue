@@ -21,6 +21,9 @@
 import { defineComponent, ref, Ref, toRefs, onMounted, onUnmounted, watch } from 'vue';
 import { SharedString } from '@fluidframework/sequence';
 import { getObjectType } from '../shared/propTypes';
+import { FluidLoaderService } from '../../../brainstorm/src/services/fluidLoaderService';
+import { CollaborativeText } from '../services/collaborative-text.dataobject';
+import { CollaborativeTextContainerRuntimeFactory } from '../services/containerCode';
 
 export default defineComponent({
   name: 'CollaborativeTextArea',
@@ -30,23 +33,20 @@ export default defineComponent({
   setup(props) {
     const textArea: Ref<HTMLTextAreaElement | undefined> = ref();
     const text: Ref<string | undefined> = ref('');
-    let sharedString: SharedString;
+    let sharedString: SharedString | undefined;
     let selectionEnd = 0;
     let selectionStart = 0;
 
-    onMounted(() => {
-
-    });
-
-    watch(() => props.sharedString, (currVal, prevVal) => {
-      // If first time sharedString has a value then hook up 'sequenceDelta' event
-      if (currVal && !prevVal) {
-        sharedString = currVal;
+    onMounted(async() => {
+      const fluidService = new FluidLoaderService();
+      const dataObject = await fluidService.loadDataObject<CollaborativeText>(CollaborativeTextContainerRuntimeFactory);
+      sharedString = dataObject.text;
+      if (sharedString) {
         text.value = sharedString.getText();
         // Sets an event listener so we can update our state as the value changes
         sharedString.on('sequenceDelta', sequenceDeltaChanged);
       }
-    }, { immediate: true });
+    });
 
     function sequenceDeltaChanged(event: any) {
         const newText = (sharedString) ? sharedString.getText() : '';
@@ -139,17 +139,19 @@ export default defineComponent({
         // Get the new caret position and use that to get the text that was inserted
         const newPosition = currentTarget.selectionStart ? currentTarget.selectionStart : 0;
         const isTextInserted = newPosition - selectionStart > 0;
-        if (isTextInserted) {
-            const insertedText = newText.substring(selectionStart, newPosition);
-            const changeRangeLength = selectionEnd - selectionStart;
-            if (changeRangeLength === 0) {
-                sharedString.insertText(selectionStart, insertedText);
+        if (sharedString) {
+            if (isTextInserted) {
+                const insertedText = newText.substring(selectionStart, newPosition);
+                const changeRangeLength = selectionEnd - selectionStart;
+                if (changeRangeLength === 0) {
+                    sharedString.insertText(selectionStart, insertedText);
+                } else {
+                    sharedString.replaceText(selectionStart, selectionEnd, insertedText);
+                }
             } else {
-                sharedString.replaceText(selectionStart, selectionEnd, insertedText);
+                // Text was removed
+                sharedString.removeText(newPosition, newPosition + charactersModifiedCount);
             }
-        } else {
-            // Text was removed
-            sharedString.removeText(newPosition, newPosition + charactersModifiedCount);
         }
     }
 
