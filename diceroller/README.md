@@ -1,4 +1,4 @@
-# Fluid Vue Dicer Roller
+# Fluid Vue Dice Roller
 
 Step to run the app:
 
