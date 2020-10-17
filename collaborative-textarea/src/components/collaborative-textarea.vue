@@ -21,7 +21,7 @@
 import { defineComponent, ref, Ref, toRefs, onMounted, onUnmounted, watch } from 'vue';
 import { SharedString } from '@fluidframework/sequence';
 import { getObjectType } from '../shared/propTypes';
-import { FluidLoaderService } from '../../../brainstorm/src/services/fluidLoaderService';
+import { FluidLoaderService } from '../services/fluidLoaderService';
 import { CollaborativeText } from '../services/collaborative-text.dataobject';
 import { CollaborativeTextContainerRuntimeFactory } from '../services/containerCode';
 
