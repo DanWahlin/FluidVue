@@ -27,9 +27,9 @@ export default defineComponent({
     user: getObjectType<IUser>({}),
     highlightMine: getBooleanType(false)
   },
-  setup() {
+  setup(props) {
     function vote(note: INote) {
-        this.model?.vote(note);
+        props.model?.vote(note);
     }
 
     return { vote };
