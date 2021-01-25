@@ -61,9 +61,9 @@ export class Notero extends DataObject implements INoteroDataModel {
     protected async hasInitialized() {
         // Create local references to the SharedMaps.
         // Otherwise, they need to be called async which is inconvenient.
-        this.notesMap = await this.root.get<IFluidHandle<SharedMap>>("notes").get();
-        this.votesMap = await this.root.get<IFluidHandle<SharedMap>>("votes").get();
-        this.usersMap = await this.root.get<IFluidHandle<SharedMap>>("users").get();
+        this.notesMap = await this.root?.get<IFluidHandle<SharedMap>>("notes")?.get() as SharedMap;
+        this.votesMap = await this.root?.get<IFluidHandle<SharedMap>>("votes")?.get() as SharedMap;
+        this.usersMap = await this.root?.get<IFluidHandle<SharedMap>>("users")?.get() as SharedMap;
 
         // Add the current user to set of collaborators.
         this.addUser();
@@ -238,7 +238,7 @@ export class Notero extends DataObject implements INoteroDataModel {
      * Get the IUser literal object for the current user.
      */
     public getUser = (): IUser => {
-        return this.usersMap.get<IUser>(this.userId);
+        return this.usersMap?.get<IUser>(this.userId) as IUser;
     }
 
     /**
